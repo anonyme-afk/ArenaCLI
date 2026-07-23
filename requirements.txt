@@ -1,0 +1,6 @@
+playwright
+rich
+typer[all]
+questionary
+prompt_toolkit
+colorama

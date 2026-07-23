@@ -1,0 +1,24 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Logs and Debug
+*.log
+debug/
+
+# Player (cache Playwright)
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# Config utilisateur (ne pas versionner)
+.arena_cli_config.json
+.arena_cli_cookies.json
+~/.arena_cli/
