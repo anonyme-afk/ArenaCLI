@@ -40,9 +40,8 @@ async def chat_loop(browser: ArenaBrowser, history: HistoryManager):
     kb = KeyBindings()
 
     @kb.add('escape', 'enter')
-    @kb.add('a-enter')
     def _(event):
-        """Insert a newline when Alt+Enter is pressed."""
+        """Insert a newline when Esc then Enter is pressed."""
         event.current_buffer.insert_text('\n')
 
     @kb.add('enter')
@@ -156,6 +155,17 @@ def main(
             return
             
         await browser.start()
+        
+        # First run auto-login
+        logged_in = await browser.check_logged_in()
+        if not logged_in:
+            print_info("[yellow]Session non valide, lancement de la connexion automatique...[/yellow]")
+            await browser.stop()
+            browser.headless = False
+            await browser.login_visible()
+            browser.headless = not visible
+            await browser.start()
+
         try:
             await chat_loop(browser, history)
         finally:

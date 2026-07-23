@@ -6,7 +6,7 @@ Un wrapper CLI non-officiel premium pour [arena.ai](https://arena.ai), utilisant
 
 - **UI Premium** : Rendu Markdown, panels pour les messages, tableaux, spinners, et interface en ligne de commande soignée grâce à `rich` et `prompt_toolkit`.
 - **Navigation Intelligente** : Menu interactif pour changer de mode avec `questionary`.
-- **Multilignes & Autocomplétion** : Appuie sur `Alt+Entrée` pour un saut de ligne. Tape `/` pour voir les commandes disponibles.
+- **Multilignes & Autocomplétion** : Appuie sur **Esc puis Entrée** pour un saut de ligne. Tape `/` pour voir les commandes disponibles.
 - **Sauvegarde d'historique** : Sauvegarde tes conversations en JSON et Markdown.
 - **Mode Diagnostic** : Détection de l'état de connexion via signaux positifs, log des erreurs, et outil `/doctor` pour le debug.
 
@@ -31,16 +31,12 @@ chmod +x installer_mac_linux.sh
 
 Une fois installé, lance toujours les commandes à l'intérieur du `venv` (activé automatiquement par les scripts ou manuellement avec `source .venv/bin/activate` / `.venv\Scripts\activate`).
 
-### Étape 1 — Connexion (première fois ou quand la session expire)
-```bash
-python arena.py --login
-```
-Un navigateur Chrome va s'ouvrir. Connecte-toi normalement sur Arena.ai (Google, Email, Discord...). Reviens sur le terminal et appuie sur Entrée. **Tes cookies seront sauvegardés (en clair, dans `~/.arena_cli/`).**
-
-### Étape 2 — Chat
+### Lancement (Connexion auto au premier run)
 ```bash
 python arena.py
 ```
+Lors de la première utilisation (ou quand ta session expire), le navigateur va s'ouvrir automatiquement. Connecte-toi normalement sur Arena.ai. Reviens sur le terminal et appuie sur Entrée. **Ta session Playwright sera sauvegardée (en clair, dans `~/.arena_cli/storage_state.json`).**
+Les lancements suivants se feront en arrière-plan sans interface de connexion.
 
 ### Options utiles
 ```bash
@@ -50,7 +46,7 @@ python arena.py --debug     # Active les logs complets et les captures d'écran 
 
 ---
 
-## ⌨️ Commandes dans le chat
+##  Commandes dans le chat
 
 | Commande | Action |
 |----------|--------|
@@ -72,7 +68,7 @@ Les données locales sont stockées dans le dossier `~/.arena_cli/` de ton répe
 | Fichier / Dossier | Rôle |
 |-------------------|------|
 | `config.json` | Préférences globales (dernier mode, etc) |
-| `cookies.json` | Les cookies de session Arena (⚠️ en clair) |
+| `storage_state.json` | La session Playwright Arena (⚠️ en clair) |
 | `history/` | Les conversations sauvegardées (`.md` et `.json`) |
 | `diagnostics/` | Logs, captures d'écran et HTML lors des erreurs (si `--debug`) |
 | `arena_cli.log` | Journal des logs techniques (si `--debug`) |
@@ -82,4 +78,4 @@ Les données locales sont stockées dans le dossier `~/.arena_cli/` de ton répe
 ## ⚠️ Notes de sécurité et limites
 
 - **Non-officiel** : Ce script pilote l'interface web de Arena. Il peut casser dès qu'ils modifient leur code HTML. Utilise l'option `--debug` et la commande `/doctor` si les choses ne répondent plus.
-- **Cookies** : Les cookies de session sont sauvegardés en **clair** dans `~/.arena_cli/cookies.json` par commodité.
+- **Session** : Les données de session (cookies, localStorage) sont sauvegardées en **clair** dans `~/.arena_cli/storage_state.json` par commodité.

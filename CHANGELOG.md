@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.0.1] - 2026-07-24
+
+### Fixed
+- Fixed a fatal crash due to `a-enter` keybinding with `prompt_toolkit`. It is now `Esc` then `Enter`.
+- Installer scripts now launch the CLI automatically after completion.
+
+### Changed
+- Playwright now uses `storage_state` instead of `cookies.json` to properly persist `localStorage` and `sessionStorage`.
+- The CLI now performs an automatic visible login prompt on the first run if the session is invalid, removing the need for manual `--login` calls.
+
 ## [2.0.0] - 2026-07-23
 
 ### Added

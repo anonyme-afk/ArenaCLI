@@ -6,7 +6,7 @@ from typing import Dict, Optional, Tuple
 @dataclass
 class Config:
     last_mode: str = "1"
-    cookie_save: bool = True
+    state_save: bool = True
     theme: str = "default"
 
 class Sel:
@@ -61,7 +61,7 @@ class ConfigManager:
     def __init__(self):
         self.config_dir = Path.home() / ".arena_cli"
         self.config_file = self.config_dir / "config.json"
-        self.cookies_file = self.config_dir / "cookies.json"
+        self.state_file = self.config_dir / "storage_state.json"
         self.history_dir = self.config_dir / "history"
         
         self._ensure_dirs()
@@ -85,21 +85,12 @@ class ConfigManager:
         with open(self.config_file, "w", encoding="utf-8") as f:
             json.dump(self.config.__dict__, f, indent=2)
 
-    def has_valid_cookies(self) -> bool:
-        return self.cookies_file.exists() and self.cookies_file.stat().st_size > 10
+    def has_valid_state(self) -> bool:
+        return self.state_file.exists() and self.state_file.stat().st_size > 10
 
-    def load_cookies(self) -> Optional[list]:
-        if self.has_valid_cookies():
-            try:
-                with open(self.cookies_file, "r", encoding="utf-8") as f:
-                    return json.load(f)
-            except Exception:
-                pass
+    def get_state_path(self) -> Optional[str]:
+        if self.has_valid_state():
+            return str(self.state_file)
         return None
-
-    def save_cookies(self, cookies: list):
-        if self.config.cookie_save:
-            with open(self.cookies_file, "w", encoding="utf-8") as f:
-                json.dump(cookies, f, indent=2)
 
 cfg_mgr = ConfigManager()

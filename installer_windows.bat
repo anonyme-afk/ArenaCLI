@@ -57,12 +57,16 @@ echo  ==========================================
 echo.
 echo  Pour utiliser Arena CLI :
 echo.
-echo    Premiere fois (connexion) :
-echo      .venv\Scripts\activate
-echo      python arena.py --login
+echo    .venv\Scripts\activate
+echo    python arena.py
 echo.
-echo    Ensuite pour chatter :
-echo      .venv\Scripts\activate
-echo      python arena.py
+
 echo.
+choice /M "Lancer ArenaCLI maintenant ?"
+if errorlevel 2 goto :END
+
+start "ArenaCLI" cmd /k ".venv\Scripts\activate && python arena.py"
+goto :EOF
+
+:END
 pause

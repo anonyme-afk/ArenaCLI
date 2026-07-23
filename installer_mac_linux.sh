@@ -49,14 +49,14 @@ echo "=========================================="
 echo ""
 echo "  Pour utiliser Arena CLI :"
 echo ""
-echo "    Première fois (connexion) :"
-echo "      source .venv/bin/activate"
-echo "      python arena.py --login"
-echo ""
-echo "    Ensuite pour chatter :"
-echo "      source .venv/bin/activate"
-echo "      python arena.py"
+echo "    source .venv/bin/activate"
+echo "    python arena.py"
 echo ""
 echo "  Astuce : ajoute un alias dans ton ~/.bashrc ou ~/.zshrc :"
 echo "    alias arena='cd $(pwd) && source .venv/bin/activate && python arena.py'"
 echo ""
+
+read -p "Lancer maintenant ? (y/N) " launch_now
+if [[ "$launch_now" =~ ^[Yy]$ ]]; then
+    python arena.py
+fi

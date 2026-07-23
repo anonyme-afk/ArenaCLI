@@ -22,30 +22,26 @@ class ArenaBrowser:
                 headless=self.headless,
                 args=["--no-sandbox", "--disable-dev-shm-usage"] + (["--start-maximized"] if not self.headless else [])
             )
+            state_path = cfg_mgr.get_state_path()
             self.context = await self.browser.new_context(
                 viewport={"width": 1280, "height": 900} if self.headless else None,
                 user_agent=(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) "
                     "Chrome/120.0.0.0 Safari/537.36"
-                )
+                ),
+                storage_state=state_path
             )
             
-            # Load cookies
-            cookies = cfg_mgr.load_cookies()
-            if cookies:
-                await self.context.add_cookies(cookies)
-                
             self.page = await self.context.new_page()
         except Exception as e:
             logger.error(f"Failed to start browser: {e}")
             raise BrowserInitError(f"Playwright initialization failed: {e}")
 
     async def stop(self):
-        # Save cookies before stopping
-        if self.context and cfg_mgr.config.cookie_save:
-            cookies = await self.context.cookies()
-            cfg_mgr.save_cookies(cookies)
+        # Save state before stopping if enabled
+        if self.context and cfg_mgr.config.state_save:
+            await self.context.storage_state(path=str(cfg_mgr.state_file))
             
         if self.browser:
             await self.browser.close()
@@ -58,6 +54,7 @@ class ArenaBrowser:
         await self.page.goto("https://arena.ai/", wait_until="domcontentloaded")
         print_info("\n[cyan]Navigateur ouvert → connecte-toi sur Arena.ai[/cyan]")
         input("\nUne fois connecté au chat, appuie sur Entrée ici pour sauvegarder la session...")
+        await self.context.storage_state(path=str(cfg_mgr.state_file))
         await self.stop()
 
     async def check_logged_in(self) -> bool:
