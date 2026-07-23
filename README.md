@@ -2,7 +2,7 @@
 
 Un wrapper CLI non-officiel premium pour [arena.ai](https://arena.ai), utilisant Playwright headless.
 
-## 🚀 Fonctionnalités V2
+##  Fonctionnalités V2
 
 - **UI Premium** : Rendu Markdown, panels pour les messages, tableaux, spinners, et interface en ligne de commande soignée grâce à `rich` et `prompt_toolkit`.
 - **Navigation Intelligente** : Menu interactif pour changer de mode avec `questionary`.
@@ -12,7 +12,7 @@ Un wrapper CLI non-officiel premium pour [arena.ai](https://arena.ai), utilisant
 
 ---
 
-## 🛠️ Installation
+##  Installation
 
 **La V2 utilise des environnements virtuels (venv) pour isoler l'installation.**
 
@@ -27,7 +27,7 @@ chmod +x installer_mac_linux.sh
 
 ---
 
-## 🎮 Utilisation
+##  Utilisation
 
 Une fois installé, lance toujours les commandes à l'intérieur du `venv` (activé automatiquement par les scripts ou manuellement avec `source .venv/bin/activate` / `.venv\Scripts\activate`).
 
@@ -65,7 +65,7 @@ python arena.py --debug     # Active les logs complets et les captures d'écran 
 
 ---
 
-## 📂 Configuration et Fichiers
+##  Configuration et Fichiers
 
 Les données locales sont stockées dans le dossier `~/.arena_cli/` de ton répertoire utilisateur.
 
